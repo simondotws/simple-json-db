@@ -129,14 +129,16 @@ class DB
       }
     }
 
-    if($orderBy['on'] !== '' && $orderBy['order'] !== ''){
-      usort($result, function($first, $second) use($orderBy){
-        if($orderBy['order'] === "ASC"){
-          return strcmp($first[$orderBy['on']], $second[$orderBy['on']]) > 0;
-        }else{
-          return strcmp($first[$orderBy['on']], $second[$orderBy['on']]) < 0;
-        }
-      });
+    if(!empty($orderBy)){
+      if($orderBy['on'] !== '' && $orderBy['order'] !== ''){
+        usort($result, function($first, $second) use($orderBy){
+          if($orderBy['order'] === "ASC"){
+            return strcmp($first[$orderBy['on']], $second[$orderBy['on']]) > 0;
+          }else{
+            return strcmp($first[$orderBy['on']], $second[$orderBy['on']]) < 0;
+          }
+        });
+      }
     }
 
     return $result;
